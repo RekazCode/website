@@ -1,1 +1,121 @@
-html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rikaz | Intelligent Architecture</title>
+  <meta name="description" content="Rikaz AI Tech Company - The Intelligent Architecture" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <header class="site-header glass" id="top">
+    <div class="logo">Rikaz <span class="arabic">ركاز</span></div>
+    <nav class="main-nav">
+      <a href="#services">Services</a>
+      <a href="#showcase">Showcase</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="theme-toggle" aria-label="Toggle theme" id="themeToggle">◐</button>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <canvas id="crystalCanvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <h1 class="fade-in" data-animate>
+        Building Tomorrow's Digital Pillars, Today.<br>
+        <span class="arabic subt">نبني ركائز الغد الرقمية، اليوم</span>
+      </h1>
+      <p class="lead fade-in" data-animate>The Intelligent Architecture for AI-driven ecosystems.</p>
+      <div class="cta-group fade-in" data-animate>
+        <a href="#services" class="btn primary">Explore Blueprint</a>
+        <a href="#contact" class="btn ghost">Start a Conversation</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services section" id="services">
+    <div class="section-head">
+      <h2 data-animate>Our AI-Powered Blueprint</h2>
+      <p data-animate>Modular, scalable, intelligence-infused solutions.</p>
+    </div>
+    <div class="service-grid">
+      <div class="service-card glass" data-animate>
+        <div class="icon ai-flow"></div>
+        <h3>AI Strategy</h3>
+        <p>Architecting data & model pipelines that evolve.</p>
+      </div>
+      <div class="service-card glass" data-animate>
+        <div class="icon ai-vision"></div>
+        <h3>Intelligent Interfaces</h3>
+        <p>Conversational & adaptive UX with real-time insight.</p>
+      </div>
+      <div class="service-card glass" data-animate>
+        <div class="icon ai-shield"></div>
+        <h3>Secure Deployment</h3>
+        <p>Hardened MLOps & governance frameworks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase section" id="showcase">
+    <div class="section-head">
+      <h2 data-animate>Showcase</h2>
+      <p data-animate>Selected architectures & cognitive modules.</p>
+    </div>
+    <div class="projects-grid" id="projectsGrid">
+      <!-- Projects inserted by JS -->
+    </div>
+  </section>
+
+  <section class="contact section" id="contact">
+    <div class="section-head">
+      <h2 data-animate>Contact</h2>
+      <p data-animate>Let's design the intelligent core of your platform.</p>
+    </div>
+    <form class="contact-form glass" id="contactForm" novalidate data-animate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name" />
+          <span class="error" data-error-for="name"></span>
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com" />
+          <span class="error" data-error-for="email"></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="company">Company</label>
+        <input type="text" id="company" name="company" placeholder="Organization (optional)" />
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required placeholder="Tell us about your vision..."></textarea>
+        <span class="error" data-error-for="message"></span>
+      </div>
+      <button type="submit" class="btn primary full">Send Message</button>
+      <p class="form-status" id="formStatus" role="status"></p>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> Rikaz (ركاز). All rights reserved.</p>
+  </footer>
+
+  <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-dialog glass" role="document">
+      <button class="modal-close" aria-label="Close" data-close>&times;</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
