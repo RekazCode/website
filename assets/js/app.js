@@ -29,8 +29,8 @@ class Crystal {
     return pts;
   }
   resize() {
-    this.canvas.width = this.canvas.offsetWidth;
-    this.canvas.height = this.canvas.offsetHeight;
+  this.canvas.width = this.canvas.clientWidth;
+  this.canvas.height = this.canvas.clientHeight;
   }
   project(pt, angleX, angleY) {
     // basic rotation + perspective
@@ -51,8 +51,9 @@ class Crystal {
     };
   }
   draw() {
+    if (document.hidden) { requestAnimationFrame(()=>this.draw()); return; }
     const ctx = this.ctx;
-    this.t += 0.0045;
+    this.t += 0.0042; // slightly slower for power save
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     const angleX = this.t * 0.7;
     const angleY = this.t * 0.9;
@@ -86,7 +87,7 @@ class Crystal {
     ctx.fillStyle = gradient;
     ctx.fillRect(0,0,this.canvas.width,this.canvas.height);
 
-    requestAnimationFrame(() => this.draw());
+  requestAnimationFrame(() => this.draw());
   }
 }
 
@@ -219,19 +220,29 @@ function updateThemeToggleIcon() {
 
 // Mobile navigation
 function initNavToggle() {
-  const nav = $('#primaryNav');
+  const nav = $('#mobileDrawer');
   const toggle = $('#navToggle');
+  const backdrop = $('#navBackdrop');
   if (!nav || !toggle) return;
-  const links = $$('a', nav);
+  const links = $$('.drawer-nav a', nav);
+  let lastFocused = null;
+  let touchStartX = null;
   function open(){
-    nav.classList.add('show');
+    lastFocused = document.activeElement;
+  nav.classList.add('open');
     toggle.setAttribute('aria-expanded','true');
     document.body.classList.add('menu-open');
+    backdrop && (backdrop.hidden = false, backdrop.classList.add('show'));
+    // focus first link
+    setTimeout(()=> { links[0] && links[0].focus(); }, 50);
   }
   function close(){
-    nav.classList.remove('show');
+  nav.classList.remove('open');
     toggle.setAttribute('aria-expanded','false');
     document.body.classList.remove('menu-open');
+    backdrop && backdrop.classList.remove('show');
+    backdrop && setTimeout(()=> { if (!nav.classList.contains('show')) backdrop.hidden = true; }, 400);
+    if (lastFocused) lastFocused.focus();
   }
   toggle.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -240,6 +251,27 @@ function initNavToggle() {
   links.forEach(l => l.addEventListener('click', () => close()));
   window.addEventListener('resize', () => { if (window.innerWidth > 860) close(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+  backdrop && backdrop.addEventListener('click', close);
+
+  // Focus trap when menu open
+  document.addEventListener('keydown', e => {
+  if (nav.classList.contains('open') && e.key === 'Tab') {
+      const focusable = [toggle, ...links];
+      const index = focusable.indexOf(document.activeElement);
+      if (e.shiftKey && (index <= 0)) { focusable[focusable.length -1].focus(); e.preventDefault(); }
+      else if (!e.shiftKey && (index === focusable.length -1)) { focusable[0].focus(); e.preventDefault(); }
+    }
+  });
+
+  // Swipe to close (right-to-left swipe area)
+  nav.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+  nav.addEventListener('touchend', e => {
+    if (touchStartX !== null) {
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (dx > 80) close();
+    }
+    touchStartX = null;
+  });
 }
 
 function initCrystal() {
@@ -256,12 +288,26 @@ function initCrystal() {
 
 // Init
 window.addEventListener('DOMContentLoaded', () => {
+  // critical
   initCrystal();
-  initScrollAnimations();
-  renderProjects();
-  initModal();
-  initContactForm();
-  initYear();
   initThemeToggle();
   initNavToggle();
+  initYear();
+  // defer non-critical to idle to improve first paint
+  (window.requestIdleCallback || function(cb){setTimeout(cb,50);})(() => {
+    initScrollAnimations();
+    renderProjects();
+    initModal();
+    initContactForm();
+  });
 });
+
+// Throttle resize for crystal
+let resizeTO;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTO);
+  resizeTO = setTimeout(()=>{
+    const canvas = $('#crystalCanvas');
+    if (canvas) { canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight; }
+  }, 160);
+}, {passive:true});

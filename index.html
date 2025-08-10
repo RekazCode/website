@@ -2,18 +2,21 @@
 <html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#7b42c6" />
+  <meta name="color-scheme" content="dark light" />
   <title>Rekaz | Intelligent Architecture</title>
   <meta name="description" content="Rekaz AI Tech Company - The Intelligent Architecture" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/css/styles.css" as="style" />
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
   <header class="site-header glass" id="top">
     <div class="logo">
-      <img src="assets/img/بنج-02.png" alt="Rekaz ركاز" class="brand-logo" />
+      <img src="assets/img/بنج-02.png" alt="Rekaz ركاز" class="brand-logo" decoding="async" fetchpriority="high" width="120" height="40" />
     </div>
     <nav class="main-nav" id="primaryNav" aria-label="Main navigation">
       <a href="#services">Services</a>
@@ -29,8 +32,16 @@
       </button>
     </div>
   </header>
+  <!-- Mobile Drawer Navigation -->
+  <aside id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
+    <nav class="drawer-nav" aria-label="Mobile navigation">
+      <a href="#services">Services</a>
+      <a href="#showcase">Showcase</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </aside>
 
-  <section class="hero" id="hero">
+  <section class="hero perf-section" id="hero">
     <div class="hero-bg" aria-hidden="true">
       <canvas id="crystalCanvas"></canvas>
     </div>
@@ -47,7 +58,7 @@
     </div>
   </section>
 
-  <section class="services section" id="services">
+  <section class="services section perf-section" id="services">
     <div class="section-head">
       <h2 data-animate>Our AI-Powered Blueprint</h2>
       <p data-animate>Modular, scalable, intelligence-infused solutions.</p>
@@ -71,7 +82,7 @@
     </div>
   </section>
 
-  <section class="showcase section" id="showcase">
+  <section class="showcase section perf-section" id="showcase">
     <div class="section-head">
       <h2 data-animate>Showcase</h2>
       <p data-animate>Selected architectures & cognitive modules.</p>
@@ -81,7 +92,7 @@
     </div>
   </section>
 
-  <section class="contact section" id="contact">
+  <section class="contact section perf-section" id="contact">
     <div class="section-head">
       <h2 data-animate>Contact</h2>
       <p data-animate>Let's design the intelligent core of your platform.</p>
@@ -125,6 +136,7 @@
     </div>
   </div>
 
-  <script src="assets/js/app.js"></script>
+  <div class="nav-backdrop" id="navBackdrop" hidden></div>
+  <script src="assets/js/app.js" defer></script>
 </body>
 </html>
