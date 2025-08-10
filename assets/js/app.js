@@ -281,6 +281,8 @@ function initNavToggle() {
 // Internationalization
 const I18N = {
   en: {
+  'meta.title': 'Rekaz | Intelligent Architecture',
+  'meta.description': 'AI architecture, intelligent platforms, secure scalable AI solutions by Rekaz.',
     'nav.services': 'Services',
     'nav.showcase': 'Showcase',
     'nav.contact': 'Contact',
@@ -309,6 +311,8 @@ const I18N = {
     required: 'Required', invalidEmail: 'Invalid email', fixFields: 'Please fix highlighted fields.', sent: 'Message sent. We will respond shortly.', sending: 'Sending...'
   },
   ar: {
+  'meta.title': 'ركاز | الهندسة الذكية',
+  'meta.description': 'الهندسة الذكية للمنصات وحلول ذكاء اصطناعي آمنة وقابلة للتوسع من ركاز.',
     'nav.services': 'الخدمات',
     'nav.showcase': 'أعمالنا',
     'nav.contact': 'تواصل',
@@ -354,6 +358,19 @@ function applyTranslations(lang){
   Object.entries(placeholders).forEach(([id,map])=>{ const f = document.getElementById(id); if (f) f.placeholder = map[lang] || map.en; });
   document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
   document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  // Update meta dynamic SEO/social
+  const metaDesc = document.querySelector('meta[name="description"][data-i18n-meta]');
+  if(metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
+  const titleEl = document.querySelector('title[data-i18n]');
+  if(titleEl && dict['meta.title']) titleEl.textContent = dict['meta.title'];
+  const ogTitle = document.querySelector('meta[property="og:title"][data-og-i18n]');
+  if (ogTitle && dict['meta.title']) ogTitle.setAttribute('content', dict['meta.title']);
+  const ogDesc = document.querySelector('meta[property="og:description"][data-og-i18n]');
+  if (ogDesc && dict['meta.description']) ogDesc.setAttribute('content', dict['meta.description']);
+  const twTitle = document.querySelector('meta[name="twitter:title"][data-twitter-i18n]');
+  if (twTitle && dict['meta.title']) twTitle.setAttribute('content', dict['meta.title']);
+  const twDesc = document.querySelector('meta[name="twitter:description"][data-twitter-i18n]');
+  if (twDesc && dict['meta.description']) twDesc.setAttribute('content', dict['meta.description']);
   // adjust body font-weight for Arabic readability if needed
 }
 
