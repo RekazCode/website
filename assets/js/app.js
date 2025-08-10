@@ -1,4 +1,4 @@
-// Rikaz Interactive Script
+// Rekaz Interactive Script
 // Core features: rotating crystal canvas, intersection animations, dynamic projects, modal, contact form validation, theme toggle.
 
 const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
@@ -190,13 +190,56 @@ function initContactForm() {
 
 function initThemeToggle() {
   const btn = $('#themeToggle');
-  const stored = localStorage.getItem('rikaz-theme');
-  if (stored === 'dark') document.documentElement.classList.add('dark');
+  if (!btn) return;
+  // migrate old key if exists
+  const old = localStorage.getItem('rikaz-theme');
+  if (old && !localStorage.getItem('rekaz-theme')) {
+    localStorage.setItem('rekaz-theme', old);
+    localStorage.removeItem('rikaz-theme');
+  }
+  const stored = localStorage.getItem('rekaz-theme');
+  // Default theme = dark (no .light class). If stored is light -> add .light class.
+  if (stored === 'light') document.documentElement.classList.add('light');
+  updateThemeToggleIcon();
   btn.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    const isDark = document.documentElement.classList.contains('dark');
-    localStorage.setItem('rikaz-theme', isDark ? 'dark' : 'light');
+    document.documentElement.classList.toggle('light');
+    const isLight = document.documentElement.classList.contains('light');
+  localStorage.setItem('rekaz-theme', isLight ? 'light' : 'dark');
+    updateThemeToggleIcon();
   });
+}
+
+function updateThemeToggleIcon() {
+  const btn = $('#themeToggle');
+  if (!btn) return;
+  const isLight = document.documentElement.classList.contains('light');
+  btn.textContent = isLight ? '☾' : '◐';
+  btn.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+}
+
+// Mobile navigation
+function initNavToggle() {
+  const nav = $('#primaryNav');
+  const toggle = $('#navToggle');
+  if (!nav || !toggle) return;
+  const links = $$('a', nav);
+  function open(){
+    nav.classList.add('show');
+    toggle.setAttribute('aria-expanded','true');
+    document.body.classList.add('menu-open');
+  }
+  function close(){
+    nav.classList.remove('show');
+    toggle.setAttribute('aria-expanded','false');
+    document.body.classList.remove('menu-open');
+  }
+  toggle.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    expanded ? close() : open();
+  });
+  links.forEach(l => l.addEventListener('click', () => close()));
+  window.addEventListener('resize', () => { if (window.innerWidth > 860) close(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 }
 
 function initCrystal() {
@@ -220,4 +263,5 @@ window.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initYear();
   initThemeToggle();
+  initNavToggle();
 });

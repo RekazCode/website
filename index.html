@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rikaz | Intelligent Architecture</title>
-  <meta name="description" content="Rikaz AI Tech Company - The Intelligent Architecture" />
+  <title>Rekaz | Intelligent Architecture</title>
+  <meta name="description" content="Rekaz AI Tech Company - The Intelligent Architecture" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
@@ -12,13 +12,22 @@
 </head>
 <body>
   <header class="site-header glass" id="top">
-    <div class="logo">Rikaz <span class="arabic">ركاز</span></div>
-    <nav class="main-nav">
+    <div class="logo">
+      <img src="assets/img/بنج-02.png" alt="Rekaz ركاز" class="brand-logo" />
+    </div>
+    <nav class="main-nav" id="primaryNav" aria-label="Main navigation">
       <a href="#services">Services</a>
       <a href="#showcase">Showcase</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="theme-toggle" aria-label="Toggle theme" id="themeToggle">◐</button>
+    <div class="header-actions">
+      <button class="theme-toggle" aria-label="Toggle theme" id="themeToggle">◐</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="primaryNav" aria-expanded="false">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
   </header>
 
   <section class="hero" id="hero">
@@ -105,7 +114,7 @@
   </section>
 
   <footer class="site-footer">
-    <p>&copy; <span id="year"></span> Rikaz (ركاز). All rights reserved.</p>
+  <p>&copy; <span id="year"></span> Rekaz (ركاز). All rights reserved.</p>
   </footer>
 
   <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">

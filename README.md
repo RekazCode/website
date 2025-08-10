@@ -1,4 +1,4 @@
-# Rikaz (ركاز) – The Intelligent Architecture
+# Rekaz (ركاز) – The Intelligent Architecture
 
 A futuristic single-page concept site for an AI tech company, featuring glassmorphism, subtle scroll animations, an abstract rotating crystal, and an interactive showcase modal system.
 
@@ -52,4 +52,4 @@ Then visit http://localhost:8080
 - Animate service icons with Lottie or SVG paths
 
 ---
-© Rikaz (ركاز)
+© Rekaz (ركاز)
