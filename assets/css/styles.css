@@ -83,6 +83,8 @@ body {
 .main-nav a:hover::after, .main-nav a:focus-visible::after { width: 100%; }
 .header-actions { display: flex; align-items: center; gap: .75rem; }
 .theme-toggle { background: rgba(255,255,255,0.1); border: 1px solid var(--border-color-strong); color: var(--color-text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: grid; place-items: center; backdrop-filter: blur(var(--blur-strength)); transition: var(--transition); }
+.lang-toggle { background: rgba(255,255,255,0.1); border: 1px solid var(--border-color-strong); color: var(--color-text); height:40px; padding:0 .9rem; border-radius: 14px; cursor:pointer; font-weight:600; letter-spacing:.5px; font-size:.7rem; display:flex; align-items:center; backdrop-filter: blur(var(--blur-strength)); transition: var(--transition); text-transform:uppercase; }
+.lang-toggle:hover { background: rgba(var(--color-primary-rgb),0.35); box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb),0.25); }
 .nav-toggle { display: none; position: relative; width: 46px; height: 46px; border-radius: 14px; background: rgba(255,255,255,0.08); border: 1px solid var(--border-color-strong); cursor: pointer; overflow: hidden; backdrop-filter: blur(var(--blur-strength)); transition: var(--transition); }
 .nav-toggle .bar { position: absolute; left: 11px; right: 11px; height: 2.8px; background: var(--color-text); border-radius: 4px; transition: transform .55s var(--transition), top .55s var(--transition), opacity .4s ease; }
 .nav-toggle .bar:nth-child(1){ top: 15px; }
@@ -92,6 +94,14 @@ body {
 .nav-toggle[aria-expanded="true"] .bar:nth-child(2){ opacity: 0; }
 .nav-toggle[aria-expanded="true"] .bar:nth-child(3){ top: 22px; transform: rotate(-45deg); }
 .theme-toggle:hover { background: rgba(123,66,198,0.3); box-shadow: 0 0 0 4px rgba(123,66,198,0.25); }
+
+/* RTL adjustments */
+html[dir='rtl'] body { direction: rtl; }
+html[dir='rtl'] .main-nav a, html[dir='rtl'] .drawer-nav a { text-align: right; }
+html[dir='rtl'] .cta-group { flex-direction: row-reverse; }
+html[dir='rtl'] .modal-close { right: auto; left: .6rem; }
+html[dir='rtl'] .mobile-drawer { right: auto; left: 0; border-left: none; border-right: 1px solid var(--border-color); transform: translateX(-105%); }
+html[dir='rtl'] .mobile-drawer.open { transform: translateX(0); }
 
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 clamp(1rem,6vw,7rem); }
 .hero-bg { position: absolute; inset: 0; overflow: hidden; }

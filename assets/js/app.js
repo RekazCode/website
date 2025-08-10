@@ -173,17 +173,21 @@ function initContactForm() {
     ['name','email','message'].forEach(field => {
       const input = form.elements[field];
       const errorEl = form.querySelector(`[data-error-for="${field}"]`);
-      if (!input.value.trim()) { errorEl.textContent = 'Required'; valid = false; }
+      const lang = localStorage.getItem('rekaz-lang') || 'en';
+      const dict = I18N[lang] || I18N.en;
+      if (!input.value.trim()) { errorEl.textContent = dict.required; valid = false; }
       else errorEl.textContent = '';
       if (field === 'email' && input.value) {
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value)) { errorEl.textContent = 'Invalid email'; valid = false; }
+        if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(input.value)) { errorEl.textContent = dict.invalidEmail; valid = false; }
       }
     });
-    if (!valid) { status.textContent = 'Please fix highlighted fields.'; return; }
-    status.textContent = 'Sending...';
+    const lang = localStorage.getItem('rekaz-lang') || 'en';
+    const dict = I18N[lang] || I18N.en;
+    if (!valid) { status.textContent = dict.fixFields; return; }
+    status.textContent = dict.sending;
     // Simulated async send
     setTimeout(() => {
-      status.textContent = 'Message sent. We will respond shortly.';
+      status.textContent = dict.sent;
       form.reset();
     }, 900);
   });
@@ -274,6 +278,108 @@ function initNavToggle() {
   });
 }
 
+// Internationalization
+const I18N = {
+  en: {
+    'nav.services': 'Services',
+    'nav.showcase': 'Showcase',
+    'nav.contact': 'Contact',
+    'hero.heading': "Building Tomorrow's Digital Pillars, Today.<br><span class=\"arabic subt\">نبني ركائز الغد الرقمية، اليوم</span>",
+    'hero.sub': 'The Intelligent Architecture for AI-driven ecosystems.',
+    'hero.cta1': 'Explore Blueprint',
+    'hero.cta2': 'Start a Conversation',
+    'services.title': 'Our AI-Powered Blueprint',
+    'services.sub': 'Modular, scalable, intelligence-infused solutions.',
+    'services.cards.strategy.title': 'AI Strategy',
+    'services.cards.strategy.body': 'Architecting data & model pipelines that evolve.',
+    'services.cards.interfaces.title': 'Intelligent Interfaces',
+    'services.cards.interfaces.body': 'Conversational & adaptive UX with real-time insight.',
+    'services.cards.secure.title': 'Secure Deployment',
+    'services.cards.secure.body': 'Hardened MLOps & governance frameworks.',
+    'showcase.title': 'Showcase',
+    'showcase.sub': 'Selected architectures & cognitive modules.',
+    'contact.title': 'Contact',
+    'contact.sub': "Let's design the intelligent core of your platform.",
+    'form.name.label': 'Name',
+    'form.email.label': 'Email',
+    'form.company.label': 'Company',
+    'form.message.label': 'Message',
+    'form.submit': 'Send Message',
+    'footer.copy': `&copy; <span id="year"></span> Rekaz (ركاز). All rights reserved.`,
+    required: 'Required', invalidEmail: 'Invalid email', fixFields: 'Please fix highlighted fields.', sent: 'Message sent. We will respond shortly.', sending: 'Sending...'
+  },
+  ar: {
+    'nav.services': 'الخدمات',
+    'nav.showcase': 'أعمالنا',
+    'nav.contact': 'تواصل',
+    'hero.heading': 'نبني ركائز الغد الرقمية، اليوم<br><span class="arabic subt">Building Tomorrow\'s Digital Pillars, Today.</span>',
+    'hero.sub': 'الهندسة الذكية لمنظومات مدعومة بالذكاء الاصطناعي.',
+    'hero.cta1': 'اكتشف البنية',
+    'hero.cta2': 'ابدأ الحوار',
+    'services.title': 'مخططنا الذكي',
+    'services.sub': 'حلول معيارية قابلة للتوسع مدمجة بالذكاء.',
+    'services.cards.strategy.title': 'استراتيجية الذكاء',
+    'services.cards.strategy.body': 'تصميم خطوط بيانات ونماذج تتطور باستمرار.',
+    'services.cards.interfaces.title': 'واجهات ذكية',
+    'services.cards.interfaces.body': 'تجارب محادثة وتكيّف فوري مع السياق.',
+    'services.cards.secure.title': 'نشر آمن',
+    'services.cards.secure.body': 'حوكمة وعمليات تعلم آلي محصّنة.',
+    'showcase.title': 'عرض المشاريع',
+    'showcase.sub': 'هندسات مختارة ووحدات معرفية.',
+    'contact.title': 'تواصل معنا',
+    'contact.sub': 'لنبنِ معًا النواة الذكية لمنصتك.',
+    'form.name.label': 'الاسم',
+    'form.email.label': 'البريد',
+    'form.company.label': 'الشركة',
+    'form.message.label': 'رسالتك',
+    'form.submit': 'إرسال',
+    'footer.copy': `&copy; <span id="year"></span> Rekaz (ركاز). جميع الحقوق محفوظة.`,
+    required: 'إلزامي', invalidEmail: 'بريد غير صالح', fixFields: 'صحح الحقول المظللة.', sent: 'تم الإرسال وسيتم الرد قريبًا.', sending: 'جاري الإرسال...'
+  }
+};
+
+function applyTranslations(lang){
+  const dict = I18N[lang] || I18N.en;
+  // text nodes
+  $$('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if (dict[key]) el.textContent = dict[key]; });
+  // HTML (allows <br>)
+  $$('[data-i18n-html]').forEach(el => { const key = el.getAttribute('data-i18n-html'); if (dict[key]) el.innerHTML = dict[key]; });
+  // placeholders
+  const placeholders = {
+    name: { en:'Your name', ar:'اسمك' },
+    email: { en:'you@example.com', ar:'you@example.com' },
+    company: { en:'Organization (optional)', ar:'الشركة (اختياري)' },
+    message: { en:'Tell us about your vision...', ar:'صف رؤيتك...' }
+  };
+  Object.entries(placeholders).forEach(([id,map])=>{ const f = document.getElementById(id); if (f) f.placeholder = map[lang] || map.en; });
+  document.documentElement.lang = lang === 'ar' ? 'ar' : 'en';
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+  // adjust body font-weight for Arabic readability if needed
+}
+
+function initLangToggle(){
+  const btn = $('#langToggle');
+  if(!btn) return;
+  const stored = localStorage.getItem('rekaz-lang') || 'en';
+  applyTranslations(stored);
+  updateLangButton(stored);
+  btn.addEventListener('click', () => {
+    const current = localStorage.getItem('rekaz-lang') || 'en';
+    const next = current === 'en' ? 'ar' : 'en';
+    localStorage.setItem('rekaz-lang', next);
+    applyTranslations(next);
+    updateLangButton(next);
+  });
+}
+
+function updateLangButton(lang){
+  const btn = $('#langToggle');
+  if(!btn) return;
+  btn.textContent = lang === 'en' ? 'AR' : 'EN';
+  btn.setAttribute('data-lang', lang);
+  btn.setAttribute('aria-label', lang === 'en' ? 'التبديل إلى العربية' : 'Switch to English');
+}
+
 function initCrystal() {
   const canvas = $('#crystalCanvas');
   if (canvas) new Crystal(canvas);
@@ -293,6 +399,7 @@ window.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initNavToggle();
   initYear();
+  initLangToggle();
   // defer non-critical to idle to improve first paint
   (window.requestIdleCallback || function(cb){setTimeout(cb,50);})(() => {
     initScrollAnimations();

@@ -19,12 +19,13 @@
       <img src="assets/img/بنج-02.png" alt="Rekaz ركاز" class="brand-logo" decoding="async" fetchpriority="high" width="120" height="40" />
     </div>
     <nav class="main-nav" id="primaryNav" aria-label="Main navigation">
-      <a href="#services">Services</a>
-      <a href="#showcase">Showcase</a>
-      <a href="#contact">Contact</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#showcase" data-i18n="nav.showcase">Showcase</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
     <div class="header-actions">
       <button class="theme-toggle" aria-label="Toggle theme" id="themeToggle">◐</button>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language" data-lang="en">AR</button>
       <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-controls="primaryNav" aria-expanded="false">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -35,9 +36,9 @@
   <!-- Mobile Drawer Navigation -->
   <aside id="mobileDrawer" class="mobile-drawer" aria-hidden="true">
     <nav class="drawer-nav" aria-label="Mobile navigation">
-      <a href="#services">Services</a>
-      <a href="#showcase">Showcase</a>
-      <a href="#contact">Contact</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#showcase" data-i18n="nav.showcase">Showcase</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
     </nav>
   </aside>
 
@@ -46,46 +47,46 @@
       <canvas id="crystalCanvas"></canvas>
     </div>
     <div class="hero-content">
-      <h1 class="fade-in" data-animate>
+      <h1 class="fade-in" data-animate data-i18n-html="hero.heading">
         Building Tomorrow's Digital Pillars, Today.<br>
         <span class="arabic subt">نبني ركائز الغد الرقمية، اليوم</span>
       </h1>
-      <p class="lead fade-in" data-animate>The Intelligent Architecture for AI-driven ecosystems.</p>
+      <p class="lead fade-in" data-animate data-i18n="hero.sub">The Intelligent Architecture for AI-driven ecosystems.</p>
       <div class="cta-group fade-in" data-animate>
-        <a href="#services" class="btn primary">Explore Blueprint</a>
-        <a href="#contact" class="btn ghost">Start a Conversation</a>
+        <a href="#services" class="btn primary" data-i18n="hero.cta1">Explore Blueprint</a>
+        <a href="#contact" class="btn ghost" data-i18n="hero.cta2">Start a Conversation</a>
       </div>
     </div>
   </section>
 
   <section class="services section perf-section" id="services">
     <div class="section-head">
-      <h2 data-animate>Our AI-Powered Blueprint</h2>
-      <p data-animate>Modular, scalable, intelligence-infused solutions.</p>
+  <h2 data-animate data-i18n="services.title">Our AI-Powered Blueprint</h2>
+  <p data-animate data-i18n="services.sub">Modular, scalable, intelligence-infused solutions.</p>
     </div>
     <div class="service-grid">
       <div class="service-card glass" data-animate>
         <div class="icon ai-flow"></div>
-        <h3>AI Strategy</h3>
-        <p>Architecting data & model pipelines that evolve.</p>
+  <h3 data-i18n="services.cards.strategy.title">AI Strategy</h3>
+  <p data-i18n="services.cards.strategy.body">Architecting data & model pipelines that evolve.</p>
       </div>
       <div class="service-card glass" data-animate>
         <div class="icon ai-vision"></div>
-        <h3>Intelligent Interfaces</h3>
-        <p>Conversational & adaptive UX with real-time insight.</p>
+  <h3 data-i18n="services.cards.interfaces.title">Intelligent Interfaces</h3>
+  <p data-i18n="services.cards.interfaces.body">Conversational & adaptive UX with real-time insight.</p>
       </div>
       <div class="service-card glass" data-animate>
         <div class="icon ai-shield"></div>
-        <h3>Secure Deployment</h3>
-        <p>Hardened MLOps & governance frameworks.</p>
+  <h3 data-i18n="services.cards.secure.title">Secure Deployment</h3>
+  <p data-i18n="services.cards.secure.body">Hardened MLOps & governance frameworks.</p>
       </div>
     </div>
   </section>
 
   <section class="showcase section perf-section" id="showcase">
     <div class="section-head">
-      <h2 data-animate>Showcase</h2>
-      <p data-animate>Selected architectures & cognitive modules.</p>
+  <h2 data-animate data-i18n="showcase.title">Showcase</h2>
+  <p data-animate data-i18n="showcase.sub">Selected architectures & cognitive modules.</p>
     </div>
     <div class="projects-grid" id="projectsGrid">
       <!-- Projects inserted by JS -->
@@ -94,38 +95,38 @@
 
   <section class="contact section perf-section" id="contact">
     <div class="section-head">
-      <h2 data-animate>Contact</h2>
-      <p data-animate>Let's design the intelligent core of your platform.</p>
+  <h2 data-animate data-i18n="contact.title">Contact</h2>
+  <p data-animate data-i18n="contact.sub">Let's design the intelligent core of your platform.</p>
     </div>
     <form class="contact-form glass" id="contactForm" novalidate data-animate>
       <div class="form-row">
         <div class="field">
-          <label for="name">Name</label>
+          <label for="name" data-i18n="form.name.label">Name</label>
           <input type="text" id="name" name="name" required placeholder="Your name" />
           <span class="error" data-error-for="name"></span>
         </div>
         <div class="field">
-          <label for="email">Email</label>
+          <label for="email" data-i18n="form.email.label">Email</label>
           <input type="email" id="email" name="email" required placeholder="you@example.com" />
           <span class="error" data-error-for="email"></span>
         </div>
       </div>
       <div class="field">
-        <label for="company">Company</label>
+  <label for="company" data-i18n="form.company.label">Company</label>
         <input type="text" id="company" name="company" placeholder="Organization (optional)" />
       </div>
       <div class="field">
-        <label for="message">Message</label>
+  <label for="message" data-i18n="form.message.label">Message</label>
         <textarea id="message" name="message" rows="5" required placeholder="Tell us about your vision..."></textarea>
         <span class="error" data-error-for="message"></span>
       </div>
-      <button type="submit" class="btn primary full">Send Message</button>
+  <button type="submit" class="btn primary full" data-i18n="form.submit">Send Message</button>
       <p class="form-status" id="formStatus" role="status"></p>
     </form>
   </section>
 
   <footer class="site-footer">
-  <p>&copy; <span id="year"></span> Rekaz (ركاز). All rights reserved.</p>
+  <p data-i18n-html="footer.copy">&copy; <span id="year"></span> Rekaz (ركاز). All rights reserved.</p>
   </footer>
 
   <div class="modal" id="projectModal" aria-hidden="true" role="dialog" aria-modal="true">
